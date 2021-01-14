@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [1.1.2] - 2021-01-14
+### Added
+- Assigns class 'Bulk' the responsibility to send documents to ELK
+
 ## [1.1.1] - 2021-01-14
 ### Added
 - Refactores so much

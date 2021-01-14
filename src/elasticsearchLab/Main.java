@@ -19,19 +19,24 @@ public class Main {
 		String table = "teste";
 		String elasticServer = "localhost";
 		int port = 9200;
+		int bulkSize = 1;
 		String protocol = "http";
+		Bulk bulk = new Bulk(elasticServer,port, protocol, bulkSize);
 
 		Map<String, Object> doc1 = new HashMap<>();
-		feedDoc(doc1, 1);
-		sendToBulk(table, doc1, elasticServer, port, protocol);
+//		feedDoc(doc1, 1);
+		bulk.feed(table, doc1);
+//		sendToBulk(table, doc1, elasticServer, port, protocol);
 		
 		Map<String, Object> doc2 = new HashMap<>();
-		feedDoc(doc2, 2);
-		sendToBulk(table, doc2, elasticServer, port, protocol);
+//		feedDoc(doc2, 2);
+		bulk.feed(table, doc2);
+//		sendToBulk(table, doc2, elasticServer, port, protocol);
 		
 		Map<String, Object> doc3 = new HashMap<>();
-		feedDoc(doc3, 3);		
-		sendToBulk(table, doc3, elasticServer, port, protocol);
+//		feedDoc(doc3, 3);
+		bulk.feed(table, doc3);
+//		sendToBulk(table, doc3, elasticServer, port, protocol);
 		
 
 	}
@@ -43,11 +48,13 @@ public class Main {
 
 		requests.add(request1);
 
-		BulkResponse responses;
 		try {
+			
 			RestHighLevelClient client = new RestHighLevelClient(
 					RestClient.builder(new HttpHost(elasticServer, port, protocol)));
-			responses = client.bulk(requests, RequestOptions.DEFAULT);
+			
+			BulkResponse responses = client.bulk(requests, RequestOptions.DEFAULT);
+			
 			client.close();
 			
 			if (responses.hasFailures()) {

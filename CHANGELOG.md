@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [1.2.0] - 2021-01-15
+### Added
+- Captures ELK server responses
+
 ## [1.1.3] - 2021-01-15
 ### Fixed
 - Fixes documents empty

@@ -7,13 +7,9 @@ import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.update.UpdateResponse;
 
-public class BulkResponseProcessor {
-	public BulkResponseProcessor(BulkResponse response) {
-		processBulkResponses(response);		
-	}
+public class BulkResponseProcessor {	
 	
-	
-	private void processBulkResponses(BulkResponse responses) {
+	public void work(BulkResponse responses) {
 		for (BulkItemResponse response : responses) {
 			DocWriteResponse itemResponse = response.getResponse();
 

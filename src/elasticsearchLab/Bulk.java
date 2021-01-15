@@ -19,9 +19,9 @@ public class Bulk {
 	private int currentBulkSize;
 
 	private BulkRequest requests;
-	@SuppressWarnings("unused")
 	private BulkResponse responses;
 	private RestHighLevelClient client;
+	private BulkResponseProcessor bulkResponseProcessor;
 
 	public Bulk(String elasticServer, int port, String protocol, int bulkSize) {
 		this.elasticServer = elasticServer;
@@ -30,6 +30,7 @@ public class Bulk {
 		this.bulkSize = bulkSize;
 		currentBulkSize = 0;
 		this.requests = new BulkRequest();
+		bulkResponseProcessor = new BulkResponseProcessor();
 	}
 
 	public int feed(String table, Map<String, Object> doc) {
@@ -62,9 +63,10 @@ public class Bulk {
 			requests.requests().clear();
 			client.close();
 			this.currentBulkSize = 0;
+			bulkResponseProcessor.work(responses);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 	
 	public Boolean isEmpty() {

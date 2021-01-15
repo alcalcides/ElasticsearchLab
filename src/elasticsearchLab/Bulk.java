@@ -19,6 +19,7 @@ public class Bulk {
 	private int currentBulkSize;
 
 	private BulkRequest requests;
+	@SuppressWarnings("unused")
 	private BulkResponse responses;
 	private RestHighLevelClient client;
 
@@ -46,7 +47,7 @@ public class Bulk {
 		return currentBulkSize;
 	}
 
-	public void setCurrentBulkSize(int currentBulkSize) {
+	private void setCurrentBulkSize(int currentBulkSize) {
 		this.currentBulkSize = currentBulkSize;
 
 		if (currentBulkSize == bulkSize) {
@@ -64,6 +65,11 @@ public class Bulk {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Boolean isEmpty() {
+		return currentBulkSize == 0 ? true : false;
+		
 	}
 
 }

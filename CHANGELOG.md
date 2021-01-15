@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [1.1.3] - 2021-01-15
+### Fixed
+- Fixes documents empty
+
+### Added
+- Doesn't version folder bin
+
 ## [1.1.2] - 2021-01-14
 ### Added
 - Assigns class 'Bulk' the responsibility to send documents to ELK

@@ -51,7 +51,7 @@ public class Bulk {
 	private void setCurrentBulkSize(int currentBulkSize) {
 		this.currentBulkSize = currentBulkSize;
 
-		if (currentBulkSize == bulkSize) {
+		if (currentBulkSize >= bulkSize) {
 			sendToElastic();
 		}
 	}
@@ -60,9 +60,9 @@ public class Bulk {
 		try {
 			client = new RestHighLevelClient(RestClient.builder(new HttpHost(elasticServer, port, protocol)));
 			responses = client.bulk(requests, RequestOptions.DEFAULT);
-			requests.requests().clear();
 			client.close();
 			this.currentBulkSize = 0;
+			requests.requests().clear();
 			bulkResponseProcessor.work(responses);
 		} catch (IOException e) {
 			e.printStackTrace();
